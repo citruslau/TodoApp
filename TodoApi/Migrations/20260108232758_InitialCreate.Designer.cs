@@ -3,14 +3,14 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using TodoApi;
+using TodoApi.Data;
 
 #nullable disable
 
 namespace TodoApi.Migrations
 {
     [DbContext(typeof(TodoDb))]
-    [Migration("20260108135255_InitialCreate")]
+    [Migration("20260108232758_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
