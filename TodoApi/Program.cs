@@ -25,5 +25,32 @@ app.MapPost("/todoitems", async (Todo todo, TodoDb db) =>
     return Results.Created($"/todoitems/{todo.Id}", todo);
 });
 
+// PUT: Update an existing Todo item
+app.MapPut("/todoitems/{id}", async (int id, Todo inputTodo, TodoDb db) =>
+{
+    var todo = await db.Todos.FindAsync(id);
+
+    if (todo is null) return Results.NotFound();
+
+    todo.TaskName = inputTodo.TaskName;
+    todo.IsCompleted = inputTodo.IsCompleted;
+
+    await db.SaveChangesAsync();
+
+    return Results.NoContent();
+});
+
+// DELETE: Remove a Todo item
+app.MapDelete("/todoitems/{id}", async (int id, TodoDb db) =>
+{
+    if (await db.Todos.FindAsync(id) is Todo todo)
+    {
+        db.Todos.Remove(todo);
+        await db.SaveChangesAsync();
+        return Results.Ok(todo);
+    }
+
+    return Results.NotFound();
+});
 
 app.Run();
